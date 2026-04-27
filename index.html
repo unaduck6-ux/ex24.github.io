@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>圖片預覽 + 資訊按鈕範例</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Roboto', system-ui, sans-serif; }
+    .preview-img {
+      width: 496px;
+      height: 280px;
+      object-fit: cover;
+    }
+    .info-panel {
+      display: none;
+    }
+    .button-spec {
+      height: 22px;
+      padding: 0 18px;
+      font-size: 13px;
+      background-color: #ffffff;
+      color: #2f2f2f;
+      border: 1px solid #2f2f2f;
+      border-radius: 8px;
+      font-weight: 400;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .button-spec:hover {
+      background-color: #f8f8f8;
+    }
+    .green-bar {
+      background-color: #d1fae5;
+      padding: 6px 10px;
+      margin-bottom: 2px;
+      font-size: 13px;
+      color: #166534;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 py-8">
+
+  <div class="max-w-5xl mx-auto bg-white shadow-lg rounded-xl overflow-hidden">
+    
+    <!-- 主預覽區域 -->
+    <div class="flex border-b">
+      
+      <!-- 左側圖片列表（簡化版） -->
+      <div class="w-72 border-r bg-gray-50 p-4">
+        <div class="text-sm font-medium mb-3 text-gray-700">圖片列表 (64/100)</div>
+        <div class="space-y-1 max-h-96 overflow-y-auto pr-2">
+          <div class="green-bar flex items-center gap-2">
+            <input type="checkbox" checked class="w-4 h-4">
+            <span class="text-sm">20171012_1.jpg</span>
+          </div>
+          <div class="green-bar flex items-center gap-2">
+            <input type="checkbox" class="w-4 h-4">
+            <span class="text-sm">20171012_2.jpg</span>
+          </div>
+          <div class="green-bar flex items-center gap-2">
+            <input type="checkbox" checked class="w-4 h-4">
+            <span class="text-sm">20171012_3.jpg</span>
+          </div>
+          <!-- 可以繼續增加更多項目 -->
+          <div class="green-bar flex items-center gap-2">
+            <input type="checkbox" class="w-4 h-4">
+            <span class="text-sm">20171012_4.jpg</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 中間主要預覽區域 -->
+      <div class="flex-1 p-6">
+        <div class="relative inline-block" style="width: 496px;">
+          <!-- 預覽圖片 -->
+          <img src="https://picsum.photos/id/1015/496/280" 
+               alt="預覽圖片" 
+               class="preview-img rounded shadow-md"
+               id="mainImage">
+
+          <!-- Default 標籤 -->
+          <div class="absolute top-3 left-3 bg-white/90 text-xs px-2 py-1 rounded text-gray-600">
+            Default<br>450x240
+          </div>
+
+          <!-- 「查看資訊」按鈕（嚴格按照設計規格） -->
+          <button onclick="toggleInfo()" 
+                  class="button-spec absolute top-4 right-4"
+                  id="infoBtn">
+            查看資訊
+          </button>
+        </div>
+
+        <!-- 展開的詳細資訊面板 -->
+        <div id="infoPanel" class="info-panel mt-6 border border-gray-300 rounded-lg overflow-hidden">
+          <div class="bg-white border-b px-4 py-2 flex justify-between items-center">
+            <span class="font-medium text-gray-700">詳細資訊</span>
+            <button onclick="toggleInfo()" 
+                    class="px-4 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded">
+              收起資訊
+            </button>
+          </div>
+
+          <div class="flex p-4 gap-6 bg-white">
+            <!-- 小圖 -->
+            <img src="https://picsum.photos/id/1015/180/120" 
+                 alt="小預覽" 
+                 class="rounded shadow w-[180px] h-[120px] object-cover">
+
+            <!-- 資訊欄 -->
+            <div class="flex-1 space-y-2 text-sm">
+              <div class="green-bar">修改日期：2017/10/12</div>
+              <div class="green-bar">類別：JPG</div>
+              <div class="green-bar">大小：466.97KB</div>
+              <div class="green-bar text-xs leading-relaxed break-all">
+                路徑：\designcenter.qnap.com.tw\DesignCenter\PM - RD 請登入\WEB\Stations\A_image2PDF\v2\sample
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底部說明 -->
+    <div class="p-4 text-xs text-gray-500 bg-gray-100">
+      按鈕規格：height 22px / border-radius 8px / bg #ffffff / outline 1px #2f2f2f / 
+      Roboto Regular 13px / color #2f2f2f
+    </div>
+  </div>
+
+  <script>
+    function toggleInfo() {
+      const panel = document.getElementById('infoPanel');
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // 可選：按下 Esc 鍵收起面板
+    document.addEventListener('keydown', function(e) {
+      if (e.key === "Escape") {
+        document.getElementById('infoPanel').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
